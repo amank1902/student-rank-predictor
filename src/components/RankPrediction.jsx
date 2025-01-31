@@ -9,7 +9,6 @@ function RankPrediction({ quizSubmissionData, historicalQuizData, setPredictedRa
   const predictedRank = predictRank(quizSubmissionData, historicalQuizData)
   const confidenceInterval = calculateConfidenceInterval(predictedRank, historicalQuizData)
 
-  // Update predicted rank in App state
   useEffect(() => {
     setPredictedRank(predictedRank);
   }, [predictedRank, setPredictedRank]);
@@ -32,11 +31,11 @@ function RankPrediction({ quizSubmissionData, historicalQuizData, setPredictedRa
 }
 
 function predictRank(quizSubmissionData, historicalQuizData) {
-  const totalCandidates = 1800000; // Total NEET candidates
+  const totalCandidates = 1800000; // Assuming total NEET candidates
   const currentScore = Number.parseFloat(quizSubmissionData.final_score) || 0;
   const historicalScores = historicalQuizData.map((quiz) => Number.parseFloat(quiz.final_score) || 0);
 
-  if (!historicalScores.length) return totalCandidates; // Avoid divide by zero error
+  if (!historicalScores.length) return totalCandidates; 
 
   // Weighted average calculation
   const weightedScores = historicalScores.map((score, index) => score * (index + 1));
@@ -46,10 +45,10 @@ function predictRank(quizSubmissionData, historicalQuizData) {
 
   const weightedAverage = (weightedSum / weightSum + currentScore) / 2;
 
-  // Ensuring percentile is at least 5% to prevent extreme rank miscalculations
+  
   const predictedPercentile = Math.max(5, (weightedAverage / 720) * 100);
 
-  // Predicted rank calculation
+  
   const predictedRank = Math.min(totalCandidates, Math.round(totalCandidates * (1 - predictedPercentile / 100)));
 
   return predictedRank;
@@ -59,7 +58,7 @@ function calculateConfidenceInterval(predictedRank, historicalQuizData) {
   const historicalRanks = historicalQuizData.map((quiz) => quiz.rank || 0);
   const stdDev = calculateStandardDeviation(historicalRanks);
 
-  // Using a 95% confidence interval
+  
   const marginOfError = 1.96 * (stdDev / Math.sqrt(historicalRanks.length));
 
   return {

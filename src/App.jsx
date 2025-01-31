@@ -75,9 +75,9 @@ function App() {
       <RankPrediction 
         quizSubmissionData={quizSubmissionData} 
         historicalQuizData={historicalQuizData} 
-        setPredictedRank={setPredictedRank}  // <-- Pass setter to update rank
+        setPredictedRank={setPredictedRank}  
       />
-      <CollegePrediction predictedRank={predictedRank} /> {/* Correctly using state */}
+      <CollegePrediction predictedRank={predictedRank} /> 
     </div>
   );
 }

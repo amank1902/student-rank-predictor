@@ -1,15 +1,15 @@
 function CollegePrediction({ predictedRank }) {
   const predictCollege = (rank) => {
-    if (predictedRank === null || predictedRank === undefined || isNaN(predictedRank)) {
-      console.error("Invalid rank in CollegePrediction:", predictedRank);
-      return <div className="text-center p-4 text-red-500">Rank data is unavailable.</div>;
-    }
+     if (predictedRank === null || predictedRank === undefined || isNaN(predictedRank)) {
+    console.error("Invalid rank in CollegePrediction:", predictedRank);
+    return <div className="text-center p-4 text-red-500">Rank data is unavailable.</div>;
+  }
     if (!rank || typeof rank !== "number") {
       console.error("Invalid rank in CollegePrediction:", rank);
       return "Unable to predict college";
     }
 
-    console.log("Processed Predicted Rank:", rank); // Debugging
+    console.log("Processed Predicted Rank:", rank); 
 
     if (rank <= 100) {
       return "All India Institute of Medical Sciences (AIIMS), New Delhi";
