@@ -46,4 +46,17 @@ The app will be running at http://localhost:3000 🚀
 4. **College Prediction:**
    - Maps predicted rank to past NEET college admissions data.
    - Suggests possible colleges based on cutoff trends.
+   
+## Screenshots & Visualizations
+
+Here are some visualizations related to the project:
+
+<!-- First row with two images side by side -->
+<div style="display: flex; justify-content: space-between;">
+  <img src="./public/image1.png" alt="Screenshot 1" width="45%" />
+  <img src="./public/image2.png" alt="Screenshot 2" width="45%" />
+</div>
+
+<!-- Second row with one image -->
+<img src="./public/image3.png" alt="Screenshot 3" width="80%" />
 
