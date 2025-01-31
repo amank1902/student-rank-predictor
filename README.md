@@ -1,4 +1,4 @@
-# NEET Testline Performance Analyzer
+# NEET Performance Analyzer
 
 ## 📌 Overview
 This project analyzes quiz performance and predicts student rankings for the NEET exam based on past results. The solution provides insights into students' weak areas, improvement trends, and likely college admissions.
