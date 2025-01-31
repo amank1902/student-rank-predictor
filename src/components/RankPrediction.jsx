@@ -1,4 +1,6 @@
-function RankPrediction({ quizSubmissionData, historicalQuizData }) {
+import { useEffect } from "react";
+
+function RankPrediction({ quizSubmissionData, historicalQuizData, setPredictedRank }) {
   if (!quizSubmissionData || !historicalQuizData) {
     console.error("Missing data in RankPrediction:", { quizSubmissionData, historicalQuizData })
     return <div className="text-center p-4">Insufficient data for rank prediction</div>
@@ -6,6 +8,11 @@ function RankPrediction({ quizSubmissionData, historicalQuizData }) {
 
   const predictedRank = predictRank(quizSubmissionData, historicalQuizData)
   const confidenceInterval = calculateConfidenceInterval(predictedRank, historicalQuizData)
+
+  // Update predicted rank in App state
+  useEffect(() => {
+    setPredictedRank(predictedRank);
+  }, [predictedRank, setPredictedRank]);
 
   return (
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -25,45 +32,46 @@ function RankPrediction({ quizSubmissionData, historicalQuizData }) {
 }
 
 function predictRank(quizSubmissionData, historicalQuizData) {
-  const currentScore = Number.parseFloat(quizSubmissionData.final_score) || 0
-  const historicalScores = historicalQuizData.map((quiz) => Number.parseFloat(quiz.final_score) || 0)
+  const totalCandidates = 1800000; // Total NEET candidates
+  const currentScore = Number.parseFloat(quizSubmissionData.final_score) || 0;
+  const historicalScores = historicalQuizData.map((quiz) => Number.parseFloat(quiz.final_score) || 0);
 
-  // Calculate weighted average, giving more weight to recent scores
-  const weightedScores = historicalScores.map((score, index) => score * (index + 1))
-  const weightedSum = weightedScores.reduce((a, b) => a + b, 0)
-  const weights = historicalScores.map((_, index) => index + 1)
-  const weightSum = weights.reduce((a, b) => a + b, 0)
+  if (!historicalScores.length) return totalCandidates; // Avoid divide by zero error
 
-  const weightedAverage = (weightedSum / weightSum + currentScore) / 2
+  // Weighted average calculation
+  const weightedScores = historicalScores.map((score, index) => score * (index + 1));
+  const weightedSum = weightedScores.reduce((a, b) => a + b, 0);
+  const weights = historicalScores.map((_, index) => index + 1);
+  const weightSum = weights.reduce((a, b) => a + b, 0);
 
-  // Assuming a total of 720 marks in NEET (180 questions * 4 marks each)
-  const predictedPercentile = (weightedAverage / 720) * 100
+  const weightedAverage = (weightedSum / weightSum + currentScore) / 2;
 
-  // Assuming approximately 1.8 million students take NEET each year
-  const totalCandidates = 1800000
-  const predictedRank = Math.round(totalCandidates * (1 - predictedPercentile / 100))
+  // Ensuring percentile is at least 5% to prevent extreme rank miscalculations
+  const predictedPercentile = Math.max(5, (weightedAverage / 720) * 100);
 
-  return predictedRank
+  // Predicted rank calculation
+  const predictedRank = Math.min(totalCandidates, Math.round(totalCandidates * (1 - predictedPercentile / 100)));
+
+  return predictedRank;
 }
 
 function calculateConfidenceInterval(predictedRank, historicalQuizData) {
-  const historicalRanks = historicalQuizData.map((quiz) => quiz.rank || 0)
-  const stdDev = calculateStandardDeviation(historicalRanks)
+  const historicalRanks = historicalQuizData.map((quiz) => quiz.rank || 0);
+  const stdDev = calculateStandardDeviation(historicalRanks);
 
   // Using a 95% confidence interval
-  const marginOfError = 1.96 * (stdDev / Math.sqrt(historicalRanks.length))
+  const marginOfError = 1.96 * (stdDev / Math.sqrt(historicalRanks.length));
 
   return {
     lower: Math.max(1, Math.round(predictedRank - marginOfError)),
     upper: Math.round(predictedRank + marginOfError),
-  }
+  };
 }
 
 function calculateStandardDeviation(values) {
-  const n = values.length
-  const mean = values.reduce((a, b) => a + b) / n
-  return Math.sqrt(values.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
+  const n = values.length;
+  const mean = values.reduce((a, b) => a + b) / n;
+  return Math.sqrt(values.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n);
 }
 
-export default RankPrediction
-
+export default RankPrediction;

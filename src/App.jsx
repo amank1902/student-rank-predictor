@@ -1,54 +1,55 @@
-import { useState, useEffect } from "react"
-import DataAnalysis from "./components/DataAnalysis"
-import RankPrediction from "./components/RankPrediction"
-import CollegePrediction from "./components/CollegePrediction"
-import PerformanceChart from "./components/PerformanceChart"
+import { useState, useEffect } from "react";
+import DataAnalysis from "./components/DataAnalysis";
+import RankPrediction from "./components/RankPrediction";
+import CollegePrediction from "./components/CollegePrediction";
+import PerformanceChart from "./components/PerformanceChart";
 
 function App() {
-  const [quizData, setQuizData] = useState(null)
-  const [quizSubmissionData, setQuizSubmissionData] = useState(null)
-  const [historicalQuizData, setHistoricalQuizData] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [quizData, setQuizData] = useState(null);
+  const [quizSubmissionData, setQuizSubmissionData] = useState(null);
+  const [historicalQuizData, setHistoricalQuizData] = useState(null);
+  const [predictedRank, setPredictedRank] = useState(null);  // <-- Store predicted rank
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const corsProxy = "https://thingproxy.freeboard.io/fetch/"
+      const corsProxy = "https://thingproxy.freeboard.io/fetch/";
       const fetchWithErrorHandling = async (url, setter) => {
         try {
           const response = await fetch(corsProxy + url, {
             headers: {
               Origin: "http://localhost:3000",
             },
-          })
+          });
           if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`)
+            throw new Error(`HTTP error! status: ${response.status}`);
           }
-          const data = await response.json()
-          console.log(`Data fetched from ${url}:`, data)
-          setter(data)
+          const data = await response.json();
+          console.log(`Data fetched from ${url}:`, data);
+          setter(data);
         } catch (error) {
-          console.error(`Error fetching data from ${url}:`, error)
-          throw error
+          console.error(`Error fetching data from ${url}:`, error);
+          throw error;
         }
-      }
+      };
 
       try {
-        await fetchWithErrorHandling("https://www.jsonkeeper.com/b/LLQT", (data) => setQuizData(data.quiz))
-        await fetchWithErrorHandling("https://api.jsonserve.com/rJvd7g", setQuizSubmissionData)
-        await fetchWithErrorHandling("https://api.jsonserve.com/XgAgFJ", (data) => setHistoricalQuizData([data]))
-        setLoading(false)
+        await fetchWithErrorHandling("https://www.jsonkeeper.com/b/LLQT", (data) => setQuizData(data.quiz));
+        await fetchWithErrorHandling("https://api.jsonserve.com/rJvd7g", setQuizSubmissionData);
+        await fetchWithErrorHandling("https://api.jsonserve.com/XgAgFJ", (data) => setHistoricalQuizData([data]));
+        setLoading(false);
       } catch (error) {
-        console.error("Error fetching data:", error)
-        setError(`Failed to fetch data: ${error.message}`)
-        setLoading(false)
+        console.error("Error fetching data:", error);
+        setError(`Failed to fetch data: ${error.message}`);
+        setLoading(false);
       }
-    }
+    };
 
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
-  if (loading) return <div className="text-center p-4">Loading...</div>
+  if (loading) return <div className="text-center p-4">Loading...</div>;
   if (error)
     return (
       <div className="text-center p-4 text-red-500">
@@ -56,10 +57,10 @@ function App() {
         <p>{error}</p>
         <p className="mt-2 text-sm">Please check the console for more details and try again later.</p>
       </div>
-    )
+    );
 
   if (!quizData || !quizSubmissionData || !historicalQuizData) {
-    return <div className="text-center p-4">Data is incomplete. Please try again later.</div>
+    return <div className="text-center p-4">Data is incomplete. Please try again later.</div>;
   }
 
   return (
@@ -71,11 +72,14 @@ function App() {
         historicalQuizData={historicalQuizData}
       />
       <PerformanceChart historicalQuizData={historicalQuizData} />
-      <RankPrediction quizSubmissionData={quizSubmissionData} historicalQuizData={historicalQuizData} />
-      <CollegePrediction predictedRank={quizSubmissionData?.rank_text} />
+      <RankPrediction 
+        quizSubmissionData={quizSubmissionData} 
+        historicalQuizData={historicalQuizData} 
+        setPredictedRank={setPredictedRank}  // <-- Pass setter to update rank
+      />
+      <CollegePrediction predictedRank={predictedRank} /> {/* Correctly using state */}
     </div>
-  )
+  );
 }
 
-export default App
-
+export default App;

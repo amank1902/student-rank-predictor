@@ -1,28 +1,32 @@
 function CollegePrediction({ predictedRank }) {
   const predictCollege = (rank) => {
-    if (!rank || typeof rank !== "string") {
-      console.error("Invalid rank in CollegePrediction:", rank)
-      return "Unable to predict college"
+    if (predictedRank === null || predictedRank === undefined || isNaN(predictedRank)) {
+      console.error("Invalid rank in CollegePrediction:", predictedRank);
+      return <div className="text-center p-4 text-red-500">Rank data is unavailable.</div>;
+    }
+    if (!rank || typeof rank !== "number") {
+      console.error("Invalid rank in CollegePrediction:", rank);
+      return "Unable to predict college";
     }
 
-    const numericRank = Number.parseInt(rank.match(/\d+/)?.[0] || "0")
+    console.log("Processed Predicted Rank:", rank); // Debugging
 
-    if (numericRank <= 100) {
-      return "All India Institute of Medical Sciences (AIIMS), New Delhi"
-    } else if (numericRank <= 500) {
-      return "Christian Medical College (CMC), Vellore"
-    } else if (numericRank <= 1000) {
-      return "Armed Forces Medical College (AFMC), Pune"
-    } else if (numericRank <= 5000) {
-      return "Maulana Azad Medical College, New Delhi"
-    } else if (numericRank <= 10000) {
-      return "Government Medical College, Chandigarh"
+    if (rank <= 100) {
+      return "All India Institute of Medical Sciences (AIIMS), New Delhi";
+    } else if (rank <= 500) {
+      return "Christian Medical College (CMC), Vellore";
+    } else if (rank <= 1000) {
+      return "Armed Forces Medical College (AFMC), Pune";
+    } else if (rank <= 5000) {
+      return "Maulana Azad Medical College, New Delhi";
+    } else if (rank <= 10000) {
+      return "Government Medical College, Chandigarh";
     } else {
-      return "Please consult the complete list of medical colleges based on your rank"
+      return "Please consult the complete list of medical colleges based on your rank";
     }
-  }
+  };
 
-  const predictedCollege = predictCollege(predictedRank)
+  const predictedCollege = predictCollege(predictedRank);
 
   return (
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -34,8 +38,7 @@ function CollegePrediction({ predictedRank }) {
         categories, state quotas, and individual college criteria.
       </p>
     </div>
-  )
+  );
 }
 
-export default CollegePrediction
-
+export default CollegePrediction;
