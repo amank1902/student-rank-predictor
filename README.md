@@ -30,5 +30,20 @@ npm run dev
 ```
 The app will be running at http://localhost:3000 🚀
 
+## 🛠 Approach & Methodology
+1. **Data Collection:**
+   - The application fetches real-time quiz performance data from APIs.
+   - Historical quiz data is retrieved for trend analysis.
 
+2. **Performance Analysis:**
+   - Evaluates user responses to identify weak topics.
+   - Tracks accuracy trends and difficulty level patterns.
+
+3. **Rank Prediction:**
+   - Uses weighted scoring techniques based on past NEET exam results.
+   - Ranks are estimated using weighted scoring based on past NEET results and performance trends.
+
+4. **College Prediction:**
+   - Maps predicted rank to past NEET college admissions data.
+   - Suggests possible colleges based on cutoff trends.
 
