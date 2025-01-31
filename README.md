@@ -16,7 +16,7 @@ This project analyzes quiz performance and predicts student rankings for the NEE
 ## 🔧 Installation & Setup
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/yourusername/neet-rank-predictor.git
+git clone https://github.com/amank1902/student-rank-predictor.git
 cd student-rank-predictor
 ```
 
