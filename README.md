@@ -28,7 +28,7 @@ npm install
 ```bash
 npm run dev
 ```
-Your server will be running on port 3000.
+The app will be running at http://localhost:3000 🚀
 
 
 
