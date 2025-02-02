@@ -30,9 +30,9 @@ function CollegePrediction({ predictedRank }) {
 
   return (
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h2 className="text-2xl font-bold mb-4">College Prediction</h2>
-      <p className="mb-2">Based on your predicted rank, you might be eligible for:</p>
-      <h3 className="text-xl font-semibold text-green-600 mb-4">{predictedCollege}</h3>
+      <h2 className="text-3xl font-bold mb-4">College Prediction</h2>
+      <p className="mb-2 text-xl">Based on your predicted rank, you might be eligible for:</p>
+      <h3 className="text-2xl font-semibold text-green-600 mb-4">{predictedCollege}</h3>
       <p className="text-sm text-gray-600">
         Note: This is a simplified prediction. Actual college admissions depend on various factors including reservation
         categories, state quotas, and individual college criteria.

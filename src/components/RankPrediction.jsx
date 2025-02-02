@@ -15,11 +15,11 @@ function RankPrediction({ quizSubmissionData, historicalQuizData, setPredictedRa
 
   return (
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h2 className="text-2xl font-bold mb-4">Rank Prediction</h2>
-      <p className="mb-2">Based on your quiz performance and historical data, your predicted NEET rank is:</p>
+      <h2 className="text-3xl font-bold mb-4">Rank Prediction</h2>
+      <p className="mb-2 text-xl">Based on your quiz performance and historical data, your predicted NEET rank is:</p>
       <h3 className="text-3xl font-bold text-blue-600 mb-4">{predictedRank}</h3>
-      <p className="mb-2">Confidence Interval:</p>
-      <p className="text-xl font-semibold text-green-600 mb-4">
+      <p className="mb-2 text-xl">Confidence Interval:</p>
+      <p className="text-2xl font-semibold text-green-600 mb-4">
         {confidenceInterval.lower} - {confidenceInterval.upper}
       </p>
       <p className="text-sm text-gray-600">

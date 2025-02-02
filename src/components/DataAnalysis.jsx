@@ -10,21 +10,21 @@ function DataAnalysis({ quizData, quizSubmissionData, historicalQuizData }) {
 
   return (
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h2 className="text-2xl font-bold mb-4">Performance Analysis</h2>
+      <h2 className="text-3xl font-bold mb-4">Performance Analysis</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <h3 className="text-xl font-semibold mb-2">Weak Areas:</h3>
           <ul className="list-disc pl-5">
             {weakAreas.length > 0 ? weakAreas.map((area, index) => (
-              <li key={index} className="mb-1">{area}</li>
-            )) : <li>No significant weak areas identified</li>}
+              <li key={index} className="mb-1 text-xl">{area}</li>
+            )) : <li className="text-xl">No significant weak areas identified</li>}
           </ul>
         </div>
         <div>
           <h3 className="text-xl font-semibold mb-2">Improvement Trends:</h3>
           <ul className="list-disc pl-5">
             {improvementTrends.length > 0 ? improvementTrends.map((trend, index) => (
-              <li key={index} className="mb-1">{trend}</li>
+              <li key={index} className="mb-1 text-xl">{trend}</li>
             )) : <li>No enough historical data to calculate improvement trends</li>}
           </ul>
         </div>
@@ -32,7 +32,7 @@ function DataAnalysis({ quizData, quizSubmissionData, historicalQuizData }) {
           <h3 className="text-xl font-semibold mb-2">Performance Gaps:</h3>
           <ul className="list-disc pl-5">
             {performanceGaps.length > 0 ? performanceGaps.map((gap, index) => (
-              <li key={index} className="mb-1">{gap}</li>
+              <li key={index} className="mb-1 text-xl">{gap}</li>
             )) : <li>No significant performance gaps identified</li>}
           </ul>
         </div>
