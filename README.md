@@ -53,10 +53,10 @@ Here are some visualizations related to the project:
 
 <!-- First row with two images side by side -->
 <div style="display: flex; justify-content: space-between;">
-  <img src="./public/image1.png" alt="Screenshot 1" width="45%" />
-  <img src="./public/image2.png" alt="Screenshot 2" width="45%" />
+  <img src="./public/image1.png" alt="Screenshot 1" width="49%" />
+  <img src="./public/image2.png" alt="Screenshot 2" width="49%" />
 </div>
 
 <!-- Second row with one image -->
-<img src="./public/image3.png" alt="Screenshot 3" width="80%" />
+<img src="./public/image3.png" alt="Screenshot 3" width="70%" />
 
