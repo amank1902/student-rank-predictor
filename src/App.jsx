@@ -8,7 +8,7 @@ function App() {
   const [quizData, setQuizData] = useState(null);
   const [quizSubmissionData, setQuizSubmissionData] = useState(null);
   const [historicalQuizData, setHistoricalQuizData] = useState(null);
-  const [predictedRank, setPredictedRank] = useState(null);  // <-- Store predicted rank
+  const [predictedRank, setPredictedRank] = useState(null);  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
